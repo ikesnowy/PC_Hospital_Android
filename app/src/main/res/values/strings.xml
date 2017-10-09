@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">PC-Hospital</string>
+    <string name="nav_about">About</string>
 </resources>
