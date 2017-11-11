@@ -2,4 +2,9 @@
 <resources>
     <string name="app_name">农林电医</string>
     <string name="nav_about">关于</string>
+    <string name="nav_language">Change Language</string>
+    <string name="label_main_ticket_num">工单</string>
+    <string name="label_main_active_staff">在线的支持人员</string>
+    <string name="label_main_more">更多……</string>
+    <string name="nav_home">主页</string>
 </resources>

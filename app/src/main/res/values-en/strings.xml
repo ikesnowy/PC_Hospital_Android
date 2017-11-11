@@ -2,4 +2,9 @@
 <resources>
     <string name="app_name">PC-Hospital</string>
     <string name="nav_about">About</string>
+    <string name="nav_language">切换语言</string>
+    <string name="label_main_ticket_num">Tickets</string>
+    <string name="label_main_active_staff">Active Staff</string>
+    <string name="label_main_more">More......</string>
+    <string name="nav_home">Home</string>
 </resources>
