@@ -7,4 +7,6 @@
     <string name="label_main_active_staff">在线的支持人员</string>
     <string name="label_main_more">更多……</string>
     <string name="nav_home">主页</string>
+    <string name="title_about">关于</string>
+    <string name="app_version">0.1.0</string>
 </resources>

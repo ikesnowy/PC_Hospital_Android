@@ -5,4 +5,7 @@
     <dimen name="card_main_text">40sp</dimen>
     <dimen name="card_label_text">20sp</dimen>
     <dimen name="card_margin">5dp</dimen>
+    <dimen name="about_logo_size">120dp</dimen>
+    <dimen name="about_app_name_text">40sp</dimen>
+    <dimen name="about_version_text">30sp</dimen>
 </resources>

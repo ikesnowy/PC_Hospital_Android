@@ -2,6 +2,7 @@ package cc.pchospital.app;
 
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -37,14 +38,19 @@ public class MainFragment extends Fragment {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         initCards();
         RecyclerView recyclerView = (RecyclerView) getView().findViewById(R.id.mainCard);
         cardAdapter = new CardAdapter(cards);
         recyclerView.setAdapter(cardAdapter);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 1);
         recyclerView.setLayoutManager(gridLayoutManager);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
     }
 
     private void initCards() {

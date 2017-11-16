@@ -40,7 +40,7 @@ public class TicketActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBar actionBar = getSupportActionBar();
+        final ActionBar actionBar = getSupportActionBar();
         if (actionBar != null){
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.icon_menu);
@@ -61,7 +61,13 @@ public class TicketActivity extends AppCompatActivity {
                 switch (item.getItemId())
                 {
                     case R.id.nav_main:
+                        actionBar.setTitle(R.string.app_name);
                         replaceFragment(new MainFragment());
+                        mDrawerLayout.closeDrawers();
+                        break;
+                    case R.id.nav_about:
+                        actionBar.setTitle(R.string.title_about);
+                        replaceFragment(new AboutFragment());
                         mDrawerLayout.closeDrawers();
                         break;
                     default:
