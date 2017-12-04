@@ -1,8 +1,10 @@
 package cc.pchospital.app;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -46,6 +48,14 @@ public class MainFragment extends Fragment {
         recyclerView.setAdapter(cardAdapter);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 1);
         recyclerView.setLayoutManager(gridLayoutManager);
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AddTicketActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

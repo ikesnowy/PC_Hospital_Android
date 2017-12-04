@@ -2,23 +2,26 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="180dp"
+    android:layout_height="100dp"
     android:padding="10dp"
     android:background="@color/colorPrimary">
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_width="@dimen/nav_user_icon_size"
-        android:layout_height="@dimen/nav_user_icon_size"
-        android:src="@drawable/icon_user"
-        android:layout_centerInParent="true"/>
 
     <TextView
         android:id="@+id/username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:text=""
+        android:text="请登录"
         android:textColor="@android:color/white"
-        android:textSize="@dimen/nav_font_main_text"/>
+        android:layout_above="@id/phone"
+        android:textSize="@dimen/nav_font_username_text"/>
+    <TextView
+        android:id="@+id/phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="18358433053"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/nav_font_phone_text"
+        />
 
 </RelativeLayout>

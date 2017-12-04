@@ -13,21 +13,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.view.MenuItem;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
-
-import cc.pchospital.app.util.Card;
-import cc.pchospital.app.util.CardAdapter;
 
 public class TicketActivity extends AppCompatActivity {
 
@@ -44,7 +36,7 @@ public class TicketActivity extends AppCompatActivity {
         if (actionBar != null){
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.icon_menu);
-            actionBar.setTitle(R.string.app_name);
+            actionBar.setTitle(R.string.title_your_ticket);
         }
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -61,14 +53,14 @@ public class TicketActivity extends AppCompatActivity {
                 switch (item.getItemId())
                 {
                     case R.id.nav_main:
-                        actionBar.setTitle(R.string.app_name);
-                        replaceFragment(new MainFragment());
                         mDrawerLayout.closeDrawers();
+                        actionBar.setTitle(R.string.title_your_ticket);
+                        replaceFragment(new MainFragment());
                         break;
                     case R.id.nav_about:
+                        mDrawerLayout.closeDrawers();
                         actionBar.setTitle(R.string.title_about);
                         replaceFragment(new AboutFragment());
-                        mDrawerLayout.closeDrawers();
                         break;
                     default:
                         break;
