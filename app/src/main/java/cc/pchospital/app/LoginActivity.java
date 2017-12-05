@@ -1,13 +1,147 @@
 package cc.pchospital.app;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.os.AsyncTask;
+import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
+import android.util.DisplayMetrics;
+import android.view.View;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.util.List;
+import java.util.Locale;
+
+import cc.pchospital.app.gson.User;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class LoginActivity extends AppCompatActivity {
+
+    Button login;
+    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        user = new User();
+        Button language = (Button) findViewById(R.id.language);
+        language.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent it = new Intent();
+                it.putExtra(getString(R.string.app_intent_extra_login),
+                        getString(R.string.app_intent_extra_login_language));
+                setResult(RESULT_CANCELED, it);
+                finish();
+            }
+        });
+        login = (Button) findViewById(R.id.login);
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 输入校验
+                TextInputEditText inputname = (TextInputEditText) findViewById(R.id.input_name);
+                String uname = inputname.getText().toString();
+                TextInputEditText inputphone = (TextInputEditText) findViewById(R.id.input_phone);
+                String uphone = inputphone.getText().toString();
+                if (uname.length() > 40){
+                    inputname.setError(getString(R.string.error_login_name_too_long));
+                    return;
+                } else if (uname.length() == 0) {
+                    inputname.setError(getString(R.string.error_login_no_name));
+                    return;
+                } else if (uphone.length() != 11) {
+                    inputphone.setError(getString(R.string.error_login_invalid_phone_number));
+                    return;
+                }
+                // 登录或注册
+                login.setEnabled(false);
+                StringBuilder url = new StringBuilder();
+                url.append("http://");
+                url.append(getString(R.string.app_network_server_ip));
+                url.append("/");
+                url.append(getString(R.string.app_network_login_page));
+                url.append("?");
+                url.append(getString(R.string.app_db_user_uname));
+                url.append("=");
+                url.append(uname);
+                url.append("&");
+                url.append(getString(R.string.app_db_user_uphone));
+                url.append("=");
+                url.append(uphone);
+                new LoginTask().execute(url.toString());
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent it = new Intent();
+        it.putExtra(getString(R.string.app_intent_extra_login),
+                getString(R.string.app_intent_extra_login_back));
+        setResult(RESULT_CANCELED, it);
+        finish();
+    }
+
+    private class LoginTask extends AsyncTask<String, String, Boolean> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            login.setText(getString(R.string.states_login_signing_in));
+        }
+
+        @Override
+        protected Boolean doInBackground(String... strings) {
+            try {
+                OkHttpClient client = new OkHttpClient();
+                Request request = new Request.Builder()
+                        .get()
+                        .url(strings[0])
+                        .build();
+                Response response = client.newCall(request).execute();
+                String responseData = response.body().string();
+                Gson gson = new Gson();
+                List<User> users = gson.fromJson(responseData,
+                        new TypeToken<List<User>>(){}.getType());
+                user = users.get(0);
+            } catch (Exception e) {
+                return false;
+            }
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            if (aBoolean) {
+                SharedPreferences.Editor editor =
+                        getSharedPreferences(getString(R.string.app_local_user_profile_filename),
+                        MODE_PRIVATE).edit();
+                editor.putInt(getString(R.string.app_db_user_uid), user.getUid());
+                editor.putString(getString(R.string.app_db_user_uname), user.getUname());
+                editor.putString(getString(R.string.app_db_user_uphone), user.getUphone());
+                editor.apply();
+                setResult(RESULT_OK);
+                finish();
+            } else {
+                Toast.makeText(LoginActivity.this,
+                        getString(R.string.toast_login_failed), Toast.LENGTH_SHORT).show();
+            }
+
+            login.setText(getString((R.string.button_login_login_or_register)));
+            login.setEnabled(true);
+        }
     }
 }

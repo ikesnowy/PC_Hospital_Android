@@ -21,4 +21,21 @@
     <string name="hint_add_ticket_note">问题描述</string>
     <string name="button_add_ticket_send">提交工单</string>
     <string name="title_add_ticket">新建工单</string>
+    <string name="button_add_ticket_add_location">添加定位信息</string>
+    <string name="error_login_name_too_long">姓名不能超过 20 个字</string>
+    <string name="error_login_invalid_phone_number">请输入 11 位手机号</string>
+    <string name="states_login_signing_in">正在登录</string>
+    <string name="toast_login_failed">登录失败，检查你的网络</string>
+    <string name="toast_ticket_need_login">请先登录</string>
+    <string name="app_network_server_ip">123.206.201.200</string>
+    <string name="app_local_user_profile_filename">userProfile</string>
+    <string name="app_network_login_page">login.jsp</string>
+    <string name="app_db_user_uid">uid</string>
+    <string name="app_db_user_uname">uname</string>
+    <string name="app_db_user_uphone">uphone</string>
+    <string name="button_login_language">Change Language</string>
+    <string name="error_login_no_name">请输入姓名</string>
+    <string name="app_intent_extra_login_language">Change Language</string>
+    <string name="app_intent_extra_login">Extra From Login</string>
+    <string name="app_intent_extra_login_back">Login cancel</string>
 </resources>

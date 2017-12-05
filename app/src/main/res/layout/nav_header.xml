@@ -7,19 +7,19 @@
     android:background="@color/colorPrimary">
 
     <TextView
-        android:id="@+id/username"
+        android:id="@+id/nav_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="请登录"
+        android:text=""
         android:textColor="@android:color/white"
-        android:layout_above="@id/phone"
+        android:layout_above="@id/nav_phone"
         android:textSize="@dimen/nav_font_username_text"/>
     <TextView
-        android:id="@+id/phone"
+        android:id="@+id/nav_phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="18358433053"
+        android:text=""
         android:textColor="@android:color/white"
         android:textSize="@dimen/nav_font_phone_text"
         />
