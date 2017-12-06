@@ -6,21 +6,18 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.support.design.widget.TextInputEditText;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.transition.Transition;
-import android.transition.TransitionInflater;
-import android.util.DisplayMetrics;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.Toast;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.List;
-import java.util.Locale;
 
 import cc.pchospital.app.gson.User;
 import okhttp3.OkHttpClient;
@@ -36,6 +33,16 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        // ToolBar
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setHomeAsUpIndicator(R.drawable.icon_arrow_back_black);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
         user = new User();
         Button language = (Button) findViewById(R.id.language);
         language.setOnClickListener(new View.OnClickListener() {
@@ -85,6 +92,17 @@ public class LoginActivity extends AppCompatActivity {
                 new LoginTask().execute(url.toString());
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                break;
+            default:
+        }
+        return true;
     }
 
     @Override

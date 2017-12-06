@@ -24,7 +24,8 @@
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask"
+            android:label=""/>
         <activity android:name=".AddTicketActivity"/>
     </application>
 

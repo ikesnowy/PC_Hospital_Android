@@ -3,6 +3,7 @@
     <dimen name="nav_font_username_text">24sp</dimen>
     <dimen name="nav_font_phone_text">16sp</dimen>
     <dimen name="nav_font_main_text">14sp</dimen>
+    <dimen name="nav_header_height">180dp</dimen>
     <dimen name="card_main_text">40sp</dimen>
     <dimen name="card_label_text">20sp</dimen>
     <dimen name="card_margin">5dp</dimen>
@@ -14,4 +15,5 @@
     <dimen name="login_form_margin">20dp</dimen>
     <dimen name="login_font_title">40sp</dimen>
     <dimen name="add_ticket_margin">12dp</dimen>
+
 </resources>
