@@ -18,6 +18,8 @@ import java.util.List;
 import cc.pchospital.app.util.Card;
 import cc.pchospital.app.util.CardAdapter;
 
+import static android.app.Activity.RESULT_OK;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,6 +28,8 @@ public class MainFragment extends Fragment {
 
     private List<Card> cards = new ArrayList<>();
     private CardAdapter cardAdapter;
+
+    private static final int TYPE_ADD_TICKET = 1;
 
     public MainFragment() {
         // Required empty public constructor
@@ -53,7 +57,7 @@ public class MainFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AddTicketActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, TYPE_ADD_TICKET);
             }
         });
     }
@@ -61,6 +65,17 @@ public class MainFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case TYPE_ADD_TICKET:
+                if (resultCode == RESULT_OK) {
+
+                }
+                break;
+        }
     }
 
     private void initCards() {

@@ -27,7 +27,7 @@ import java.util.Locale;
 
 public class TicketActivity extends AppCompatActivity {
 
-    public static final int TYPE_LOGIN = 0;
+    public static final int TYPE_LOGIN = 1;
 
     private DrawerLayout mDrawerLayout;
 

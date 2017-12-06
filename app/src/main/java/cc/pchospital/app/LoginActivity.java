@@ -17,16 +17,13 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
-
 import cc.pchospital.app.gson.User;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
+import cc.pchospital.app.util.HttpUtil;
 import okhttp3.Response;
 
 public class LoginActivity extends AppCompatActivity {
-
-    Button login;
     User user;
 
     @Override
@@ -55,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
                 finish();
             }
         });
-        login = (Button) findViewById(R.id.login);
+        final Button login = (Button) findViewById(R.id.login);
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,7 +86,7 @@ public class LoginActivity extends AppCompatActivity {
                 url.append(getString(R.string.app_db_user_uphone));
                 url.append("=");
                 url.append(uphone);
-                new LoginTask().execute(url.toString());
+                new LoginTask(LoginActivity.this).execute(url.toString());
             }
         });
     }
@@ -114,27 +111,30 @@ public class LoginActivity extends AppCompatActivity {
         finish();
     }
 
-    private class LoginTask extends AsyncTask<String, String, Boolean> {
+    private static class LoginTask extends AsyncTask<String, String, Boolean> {
+
+        private WeakReference<LoginActivity> activity;
+
+        LoginTask(LoginActivity context) {
+            activity = new WeakReference<>(context);
+        }
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            login.setText(getString(R.string.states_login_signing_in));
+            Button login = activity.get().findViewById(R.id.login);
+            login.setText(activity.get().getString(R.string.states_login_signing_in));
         }
 
         @Override
         protected Boolean doInBackground(String... strings) {
             try {
-                OkHttpClient client = new OkHttpClient();
-                Request request = new Request.Builder()
-                        .get()
-                        .url(strings[0])
-                        .build();
-                Response response = client.newCall(request).execute();
+                Response response = HttpUtil.sendGetOkHttpRequest(strings[0]);
                 String responseData = response.body().string();
                 Gson gson = new Gson();
                 List<User> users = gson.fromJson(responseData,
                         new TypeToken<List<User>>(){}.getType());
-                user = users.get(0);
+                activity.get().user = users.get(0);
             } catch (Exception e) {
                 return false;
             }
@@ -143,22 +143,24 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Boolean aBoolean) {
+            LoginActivity loginActivity = activity.get();
             if (aBoolean) {
+                User user = loginActivity.user;
                 SharedPreferences.Editor editor =
-                        getSharedPreferences(getString(R.string.app_local_user_profile_filename),
+                        loginActivity.getSharedPreferences(loginActivity.getString(R.string.app_local_user_profile_filename),
                         MODE_PRIVATE).edit();
-                editor.putInt(getString(R.string.app_db_user_uid), user.getUid());
-                editor.putString(getString(R.string.app_db_user_uname), user.getUname());
-                editor.putString(getString(R.string.app_db_user_uphone), user.getUphone());
+                editor.putInt(loginActivity.getString(R.string.app_db_user_uid), user.getUid());
+                editor.putString(loginActivity.getString(R.string.app_db_user_uname), user.getUname());
+                editor.putString(loginActivity.getString(R.string.app_db_user_uphone), user.getUphone());
                 editor.apply();
-                setResult(RESULT_OK);
-                finish();
+                loginActivity.setResult(RESULT_OK);
+                loginActivity.finish();
             } else {
-                Toast.makeText(LoginActivity.this,
-                        getString(R.string.toast_login_failed), Toast.LENGTH_SHORT).show();
+                Toast.makeText(loginActivity,
+                        loginActivity.getString(R.string.toast_login_failed), Toast.LENGTH_SHORT).show();
             }
-
-            login.setText(getString((R.string.button_login_login_or_register)));
+            Button login = loginActivity.findViewById(R.id.login);
+            login.setText(loginActivity.getString((R.string.button_login_login_or_register)));
             login.setEnabled(true);
         }
     }
