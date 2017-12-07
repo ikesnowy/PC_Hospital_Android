@@ -8,7 +8,6 @@
     <string name="label_main_more">更多……</string>
     <string name="nav_home">主页</string>
     <string name="title_about">关于</string>
-    <string name="app_version">0.2.0</string>
     <string name="title_your_ticket">你的工单</string>
     <string name="title_login">登录</string>
     <string name="label_login_phone">手机号</string>
@@ -27,15 +26,18 @@
     <string name="states_login_signing_in">正在登录</string>
     <string name="toast_login_failed">登录失败，检查你的网络</string>
     <string name="toast_ticket_need_login">请先登录</string>
-    <string name="app_network_server_ip">123.206.201.200</string>
-    <string name="app_local_user_profile_filename">userProfile</string>
-    <string name="app_network_login_page">login.jsp</string>
-    <string name="app_db_user_uid">uid</string>
-    <string name="app_db_user_uname">uname</string>
-    <string name="app_db_user_uphone">uphone</string>
     <string name="button_login_language">Change Language</string>
     <string name="error_login_no_name">请输入姓名</string>
-    <string name="app_intent_extra_login_language">Change Language</string>
-    <string name="app_intent_extra_login">Extra From Login</string>
-    <string name="app_intent_extra_login_back">Login cancel</string>
+    <string name="descriptions_nav_settings">设置</string>
+    <string name="title_settings">设置</string>
+    <string name="settings_screens_user_settings">用户信息</string>
+    <string name="settings_items_user_name">修改姓名</string>
+    <string name="settings_items_user_phone">修改手机号</string>
+    <string name="settings_summaries_user_settings">修改默认姓名和手机号</string>
+    <string name="settings_categories_general">常规</string>
+    <string name="settings_items_push_enabled">推送通知</string>
+    <string name="settings_items_change_user">切换用户</string>
+    <string name="settings_items_uid">ID</string>
+    <string name="settings_items_language">语言</string>
+    <string name="app_locale">中文（中国）</string>
 </resources>

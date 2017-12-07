@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="@string/settings_screens_user_settings">
+
+        <Preference
+            android:key="@string/app_db_user_uid"
+            android:title="@string/settings_items_uid"
+            android:summary="@string/settings_default_values_null"/>
+
+        <EditTextPreference
+            android:key="@string/app_db_user_uname"
+            android:title="@string/settings_items_user_name"
+            android:summary="@string/settings_default_values_null"/>
+
+        <EditTextPreference
+            android:key="@string/app_db_user_uphone"
+            android:title="@string/settings_items_user_phone"
+            android:summary="@string/settings_default_values_null"/>
+
+        <Preference
+            android:title="@string/settings_items_change_user"
+            android:key="@string/settings_items_change_user">
+        </Preference>
+
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/settings_categories_general">
+        <SwitchPreference
+            android:key="@string/app_db_push_enabled"
+            android:title="@string/settings_items_push_enabled"
+            android:defaultValue="true"/>
+        <Preference
+            android:title="@string/settings_items_language"
+            android:key="@string/settings_items_language"
+            android:summary="@string/settings_default_values_null">
+        </Preference>
+    </PreferenceCategory>
+
+</PreferenceScreen>

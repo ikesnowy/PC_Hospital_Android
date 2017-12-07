@@ -1,5 +1,7 @@
 package cc.pchospital.app;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -16,15 +18,17 @@ public class AddTicketActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle(getString(R.string.title_add_ticket));
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setTitle(getString(R.string.title_add_ticket));
+        }
 
+        SharedPreferences preferences =
+                PreferenceManager.getDefaultSharedPreferences(this);
         TextInputEditText name = findViewById(R.id.name);
-        name.setText(MyApplication.getUserName());
+        name.setText(preferences.getString(getString(R.string.app_db_user_uname), ""));
         TextInputEditText phone = findViewById(R.id.phone);
-        phone.setText(MyApplication.getUserPhone());
-
-
+        phone.setText(preferences.getString(getString(R.string.app_db_user_uphone), ""));
     }
 
     @Override

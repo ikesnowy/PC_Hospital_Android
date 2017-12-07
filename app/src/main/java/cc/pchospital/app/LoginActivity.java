@@ -1,10 +1,6 @@
 package cc.pchospital.app;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.os.AsyncTask;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -13,18 +9,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.ref.WeakReference;
-import java.util.List;
+import cc.pchospital.app.db.LoginTask;
 import cc.pchospital.app.gson.User;
-import cc.pchospital.app.util.HttpUtil;
-import okhttp3.Response;
 
 public class LoginActivity extends AppCompatActivity {
-    User user;
+    public User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +30,8 @@ public class LoginActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
+
+
         user = new User();
         Button language = (Button) findViewById(R.id.language);
         language.setOnClickListener(new View.OnClickListener() {
@@ -52,7 +44,14 @@ public class LoginActivity extends AppCompatActivity {
                 finish();
             }
         });
-        final Button login = (Button) findViewById(R.id.login);
+        // 根据调用方决定是否显示语言按钮
+        Intent intent = getIntent();
+        String extra = intent.getStringExtra(getString(R.string.app_intent_extra_settings));
+        if (extra != null) {
+            language.setVisibility(View.GONE);
+        }
+
+            final Button login = (Button) findViewById(R.id.login);
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,59 +108,5 @@ public class LoginActivity extends AppCompatActivity {
                 getString(R.string.app_intent_extra_login_back));
         setResult(RESULT_CANCELED, it);
         finish();
-    }
-
-    private static class LoginTask extends AsyncTask<String, String, Boolean> {
-
-        private WeakReference<LoginActivity> activity;
-
-        LoginTask(LoginActivity context) {
-            activity = new WeakReference<>(context);
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            Button login = activity.get().findViewById(R.id.login);
-            login.setText(activity.get().getString(R.string.states_login_signing_in));
-        }
-
-        @Override
-        protected Boolean doInBackground(String... strings) {
-            try {
-                Response response = HttpUtil.sendGetOkHttpRequest(strings[0]);
-                String responseData = response.body().string();
-                Gson gson = new Gson();
-                List<User> users = gson.fromJson(responseData,
-                        new TypeToken<List<User>>(){}.getType());
-                activity.get().user = users.get(0);
-            } catch (Exception e) {
-                return false;
-            }
-            return true;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean aBoolean) {
-            LoginActivity loginActivity = activity.get();
-            if (aBoolean) {
-                User user = loginActivity.user;
-                SharedPreferences.Editor editor =
-                        loginActivity.getSharedPreferences(loginActivity.getString(R.string.app_local_user_profile_filename),
-                        MODE_PRIVATE).edit();
-                editor.putInt(loginActivity.getString(R.string.app_db_user_uid), user.getUid());
-                editor.putString(loginActivity.getString(R.string.app_db_user_uname), user.getUname());
-                editor.putString(loginActivity.getString(R.string.app_db_user_uphone), user.getUphone());
-                editor.apply();
-                loginActivity.setResult(RESULT_OK);
-                loginActivity.finish();
-            } else {
-                Toast.makeText(loginActivity,
-                        loginActivity.getString(R.string.toast_login_failed), Toast.LENGTH_SHORT).show();
-            }
-            Button login = loginActivity.findViewById(R.id.login);
-            login.setText(loginActivity.getString((R.string.button_login_login_or_register)));
-            login.setEnabled(true);
-        }
     }
 }
