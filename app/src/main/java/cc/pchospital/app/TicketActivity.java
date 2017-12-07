@@ -179,12 +179,16 @@ public class TicketActivity extends AppCompatActivity {
                 } else if (resultCode == RESULT_CANCELED) {
                     String resultdata = data.getStringExtra
                             (getString(R.string.app_intent_extra_login));
-                    if (resultdata.equals
-                            (getString(R.string.app_intent_extra_login_language))) {
-                        ChangeLocale.Change(TicketActivity.this);
-                        restart();
-                    } else {
+                    if (resultdata == null) {
                         finish();
+                    } else {
+                        if (resultdata.equals
+                                (getString(R.string.app_intent_extra_login_language))) {
+                            ChangeLocale.Change(TicketActivity.this);
+                            restart();
+                        } else {
+                            finish();
+                        }
                     }
                 }
                 break;
@@ -199,7 +203,6 @@ public class TicketActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.dynamic_content, fragment);
-        transaction.addToBackStack(null);
         transaction.commit();
     }
 
