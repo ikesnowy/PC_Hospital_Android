@@ -40,4 +40,7 @@
     <string name="settings_items_uid">User ID</string>
     <string name="settings_items_language">Language</string>
     <string name="app_locale">EN-US</string>
+    <string name="title_dialog_change_user_info">Uploading new infomation</string>
+    <string name="toast_settings_user_info_update_failed">Update contacts failed, check your Internet</string>
+    <string name="toast_settings_user_info_update_successfully">New contacts has been applied</string>
 </resources>

@@ -57,4 +57,9 @@
     <string name="app_db_language" translatable="false">language</string>
     <string name="settings_items_language">Language</string>
     <string name="app_locale">English</string>
+    <string name="title_dialog_change_user_info">Uploading new infomation</string>
+    <string name="app_network_change_name_page" translatable="false">changeName.jsp</string>
+    <string name="toast_settings_user_info_update_successfully">New contacts has been applied</string>
+    <string name="toast_settings_user_info_update_failed">Update contacts failed, check your Internet</string>
+    <string name="app_network_change_phone_page" translatable="false">changePhone.jsp</string>
 </resources>

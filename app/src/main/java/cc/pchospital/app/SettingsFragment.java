@@ -9,8 +9,12 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceGroup;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.widget.Toast;
 
+import cc.pchospital.app.db.ChangeNameTask;
+import cc.pchospital.app.db.ChangePhoneTask;
 import cc.pchospital.app.util.ChangeLocale;
+import cc.pchospital.app.util.HttpUtil;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,6 +23,8 @@ public class SettingsFragment extends PreferenceFragment
         implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     SharedPreferences sharedPreferences;
+    private String userNameBackup;
+    private String userPhoneBackup;
 
     public SettingsFragment() {
         // Required empty public constructor
@@ -29,10 +35,16 @@ public class SettingsFragment extends PreferenceFragment
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preference);
+
+        // 初始化类成员
         getPreferenceScreen().getSharedPreferences()
                 .registerOnSharedPreferenceChangeListener(this);
         sharedPreferences = getPreferenceScreen().getSharedPreferences();
         initSummery(getPreferenceScreen());
+        userNameBackup =
+                sharedPreferences.getString(getString(R.string.app_db_user_uname), null);
+        userPhoneBackup =
+                sharedPreferences.getString(getString(R.string.app_db_user_uphone), null);
 
         // 切换用户按钮监听
         Preference preference = findPreference(getString(R.string.settings_items_change_user));
@@ -58,12 +70,77 @@ public class SettingsFragment extends PreferenceFragment
             }
         });
         switchLanguage.setSummary(getString(R.string.app_locale));
+
+        // 用户名修改校验
+        Preference userNameEditText = findPreference(getString(R.string.app_db_user_uname));
+        userNameEditText.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                String newName = (String) newValue;
+                if (newName.length() == 0)
+                    return false;
+                if (newName.length() >= 40) {
+                    Toast.makeText(getActivity(),
+                            getString(R.string.error_login_name_too_long),
+                            Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+                return true;
+            }
+        });
+
+        // 手机号修改校验
+        Preference userPhoneEditText = findPreference(getString(R.string.app_db_user_uphone));
+        userPhoneEditText.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                String newPhone = (String) newValue;
+                if (newPhone.length() == 0) {
+                    return false;
+                }
+                if (newPhone.length() != 11) {
+                    Toast.makeText(getActivity(),
+                            getString(R.string.error_login_invalid_phone_number),
+                            Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+                return true;
+            }
+        });
     }
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if (key.equals(getString(R.string.app_db_push_enabled))) {
             return;
+        }
+        if (key.equals(getString(R.string.app_db_user_uname))) {
+
+            String uid = sharedPreferences.getString(getString(R.string.app_db_user_uid),
+                    null);
+            String uname = sharedPreferences.getString(key, null);
+            String url = HttpUtil.buildURL(
+                    getString(R.string.app_network_server_ip),
+                    getString(R.string.app_network_change_name_page),
+                    getString(R.string.app_db_user_uid),
+                    uid,
+                    getString(R.string.app_db_user_uname),
+                    uname);
+            new ChangeNameTask(this, userNameBackup)
+                    .execute(url);
+        } else if (key.equals(getString(R.string.app_db_user_uphone))) {
+            String uid = sharedPreferences.getString(getString(R.string.app_db_user_uid),
+                    null);
+            String uphone = sharedPreferences.getString(key, null);
+            String url = HttpUtil.buildURL(
+                    getString(R.string.app_network_server_ip),
+                    getString(R.string.app_network_change_phone_page),
+                    getString(R.string.app_db_user_uid),
+                    uid,
+                    getString(R.string.app_db_user_uphone),
+                    uphone);
+            new ChangePhoneTask(this, userPhoneBackup)
+                    .execute(url);
         }
         Preference preference = findPreference(key);
         preference.setSummary(sharedPreferences.getString(key, "default"));
@@ -114,4 +191,15 @@ public class SettingsFragment extends PreferenceFragment
         startActivity(it);
     }
 
+
+    public void reloadUserInfo() {
+        userNameBackup =
+                sharedPreferences.getString(getString(R.string.app_db_user_uname), null);
+        userPhoneBackup =
+                sharedPreferences.getString(getString(R.string.app_db_user_uphone), null);
+    }
+
+    public SharedPreferences getSharedPreferences() {
+        return sharedPreferences;
+    }
 }

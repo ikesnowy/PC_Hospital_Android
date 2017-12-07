@@ -40,4 +40,7 @@
     <string name="settings_items_uid">ID</string>
     <string name="settings_items_language">语言</string>
     <string name="app_locale">中文（中国）</string>
+    <string name="title_dialog_change_user_info">上传新的用户信息</string>
+    <string name="toast_settings_user_info_update_successfully">修改成功</string>
+    <string name="toast_settings_user_info_update_failed">修改失败，检查你的网络</string>
 </resources>

@@ -12,6 +12,7 @@ import android.widget.Button;
 
 import cc.pchospital.app.db.LoginTask;
 import cc.pchospital.app.gson.User;
+import cc.pchospital.app.util.HttpUtil;
 
 public class LoginActivity extends AppCompatActivity {
     public User user;
@@ -72,20 +73,14 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 // 登录或注册
                 login.setEnabled(false);
-                StringBuilder url = new StringBuilder();
-                url.append("http://");
-                url.append(getString(R.string.app_network_server_ip));
-                url.append("/");
-                url.append(getString(R.string.app_network_login_page));
-                url.append("?");
-                url.append(getString(R.string.app_db_user_uname));
-                url.append("=");
-                url.append(uname);
-                url.append("&");
-                url.append(getString(R.string.app_db_user_uphone));
-                url.append("=");
-                url.append(uphone);
-                new LoginTask(LoginActivity.this).execute(url.toString());
+                String url = HttpUtil.buildURL(
+                        getString(R.string.app_network_server_ip),
+                        getString(R.string.app_network_login_page),
+                        getString(R.string.app_db_user_uname),
+                        uname,
+                        getString(R.string.app_db_user_uphone),
+                        uphone);
+                new LoginTask(LoginActivity.this).execute(url);
             }
         });
     }

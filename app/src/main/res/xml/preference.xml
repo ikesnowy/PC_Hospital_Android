@@ -11,12 +11,15 @@
         <EditTextPreference
             android:key="@string/app_db_user_uname"
             android:title="@string/settings_items_user_name"
-            android:summary="@string/settings_default_values_null"/>
+            android:summary="@string/settings_default_values_null"
+            android:inputType="text"/>
 
         <EditTextPreference
             android:key="@string/app_db_user_uphone"
             android:title="@string/settings_items_user_phone"
-            android:summary="@string/settings_default_values_null"/>
+            android:summary="@string/settings_default_values_null"
+            android:inputType="number"
+            />
 
         <Preference
             android:title="@string/settings_items_change_user"
