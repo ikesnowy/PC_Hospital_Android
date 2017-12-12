@@ -48,8 +48,6 @@
     <string name="settings_categories_general">General</string>
     <string name="app_db_push_enabled" translatable="false">push_enabled</string>
     <string name="settings_items_push_enabled">Push notification</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="settings_items_change_user">Change User</string>
     <string name="settings_items_uid">User ID</string>
     <string name="app_intent_extra_settings" translatable="false">Extra From Settings</string>
@@ -57,9 +55,25 @@
     <string name="app_db_language" translatable="false">language</string>
     <string name="settings_items_language">Language</string>
     <string name="app_locale">English</string>
-    <string name="title_dialog_change_user_info">Uploading new infomation</string>
+    <string name="title_dialog_change_user_info">Uploading new information</string>
     <string name="app_network_change_name_page" translatable="false">changeName.jsp</string>
     <string name="toast_settings_user_info_update_successfully">New contacts has been applied</string>
     <string name="toast_settings_user_info_update_failed">Update contacts failed, check your Internet</string>
     <string name="app_network_change_phone_page" translatable="false">changePhone.jsp</string>
+    <string name="label_ticket_uploading">Uploading</string>
+    <string name="label_ticket_uploaded">Sent!</string>
+    <string name="label_ticket_unread">Unread</string>
+    <string name="label_ticket_noticed">Noticed</string>
+    <string name="label_ticket_accepted">Accepted</string>
+    <string name="label_ticket_complete">Complete</string>
+    <string name="label_ticket_canceled">Canceled</string>
+    <string name="label_ticket_upload_failed">Upload failed</string>
+    <string name="app_ticket_states_uploading" translatable="false">uploading</string>
+    <string name="app_ticket_states_uploaded" translatable="false">uploaded</string>
+    <string name="app_ticket_states_unread" translatable="false">unread</string>
+    <string name="app_ticket_states_noticed" translatable="false">noticed</string>
+    <string name="app_ticket_states_accepted" translatable="false">accepted</string>
+    <string name="app_ticket_states_complete" translatable="false">complete</string>
+    <string name="app_ticket_states_canceled" translatable="false">canceled</string>
+    <string name="app_ticket_states_failed" translatable="false">failed</string>
 </resources>

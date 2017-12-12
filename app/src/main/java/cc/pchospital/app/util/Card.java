@@ -2,19 +2,57 @@ package cc.pchospital.app.util;
 
 
 public class Card {
-    String label;
-    int number;
+    private String ticketID;
+    private String ticketDate;
+    private String ticketLocation;
+    private String ticketNote;
+    private String ticketStates;
 
-    public Card(String label, int number){
-        this.label = label;
-        this.number = number;
+    public Card(int id, String date, String location, String note, String states){
+        ticketID = Integer.toString(id);
+        ticketDate = date;
+        ticketLocation = location;
+        ticketNote = note;
+        ticketStates = states;
     }
 
-    public String getLabel() {
-        return label;
+    String getTicketID() {
+        return ticketID;
     }
 
-    public int getNumber() {
-        return number;
+    public void setTicketID(String ticketID) {
+        this.ticketID = ticketID;
+    }
+
+    String getTicketDate() {
+        return ticketDate;
+    }
+
+    public void setTicketDate(String ticketDate) {
+        this.ticketDate = ticketDate;
+    }
+
+    String getTicketLocation() {
+        return ticketLocation;
+    }
+
+    public void setTicketLocation(String ticketLocation) {
+        this.ticketLocation = ticketLocation;
+    }
+
+    String getTicketNote() {
+        return ticketNote;
+    }
+
+    public void setTicketNote(String ticketNote) {
+        this.ticketNote = ticketNote;
+    }
+
+    String getTicketStates() {
+        return ticketStates;
+    }
+
+    public void setTicketStates(String ticketStates) {
+        this.ticketStates = ticketStates;
     }
 }

@@ -6,6 +6,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -34,6 +35,7 @@ public class TicketActivity extends AppCompatActivity {
 
     public static final int TYPE_LOGIN = 1;
     public static final int TYPE_SETTINGS = 2;
+    private static final int TYPE_ADD_TICKET = 3;
 
     private DrawerLayout mDrawerLayout;
     private TextView uName;
@@ -59,6 +61,16 @@ public class TicketActivity extends AppCompatActivity {
             actionBar.setHomeAsUpIndicator(R.drawable.icon_menu);
             actionBar.setTitle(R.string.title_your_ticket);
         }
+
+        // UI-FloatingActionButton
+        final FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TicketActivity.this, AddTicketActivity.class);
+                startActivityForResult(intent, TYPE_ADD_TICKET);
+            }
+        });
 
         // UI-NavigationView
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -93,7 +105,7 @@ public class TicketActivity extends AppCompatActivity {
                         if (actionBar != null) {
                             actionBar.setTitle(R.string.title_your_ticket);
                         }
-
+                        fab.setVisibility(View.VISIBLE);
                         replaceFragment(new MainFragment());
                         break;
                     case R.id.nav_about:
@@ -101,6 +113,7 @@ public class TicketActivity extends AppCompatActivity {
                         if (actionBar != null) {
                             actionBar.setTitle(R.string.title_about);
                         }
+                        fab.setVisibility(View.GONE);
                         replaceFragment(new AboutFragment());
                         break;
                     default:

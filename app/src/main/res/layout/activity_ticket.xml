@@ -9,6 +9,8 @@
     android:background="@color/background_gray"
     tools:context="cc.pchospital.app.TicketActivity">
 
+
+
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -23,7 +25,8 @@
                 android:layout_height="?attr/actionBarSize"
                 android:background="@color/colorPrimary"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                app:layout_scrollFlags="scroll|enterAlways|snap"/>
         </android.support.design.widget.AppBarLayout>
 
         <FrameLayout
@@ -31,6 +34,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/floating_action_button_margin"
+            app:srcCompat = "@drawable/icon_add"/>
 
     </android.support.design.widget.CoordinatorLayout>
 
@@ -58,6 +69,7 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
     </android.support.design.widget.NavigationView>
+
 
 
 

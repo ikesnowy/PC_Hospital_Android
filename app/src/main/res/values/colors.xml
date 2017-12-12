@@ -8,4 +8,13 @@
     <color name="textSuccess">#008e59</color>
     <color name="background_gray">#f6f6f6</color>
     <color name="background_lighter_gray">#fafafa</color>
+
+    <color name="textDefault">#808080</color>
+
+    <color name="States_failed">#bb1c33</color>
+    <color name="States_unread">#f2de76</color>
+    <color name="States_noticed">#e8853b</color>
+    <color name="States_accepted">#008e59</color>
+    <color name="States_complete">#0041a5</color>
+    <color name="States_canceled">#363532</color>
 </resources>

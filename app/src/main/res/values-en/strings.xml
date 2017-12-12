@@ -40,7 +40,15 @@
     <string name="settings_items_uid">User ID</string>
     <string name="settings_items_language">Language</string>
     <string name="app_locale">EN-US</string>
-    <string name="title_dialog_change_user_info">Uploading new infomation</string>
+    <string name="title_dialog_change_user_info">Uploading new information</string>
     <string name="toast_settings_user_info_update_failed">Update contacts failed, check your Internet</string>
     <string name="toast_settings_user_info_update_successfully">New contacts has been applied</string>
+    <string name="label_ticket_uploading">Uploading</string>
+    <string name="label_ticket_uploaded">Sent!</string>
+    <string name="label_ticket_unread">Unread</string>
+    <string name="label_ticket_noticed">Noticed</string>
+    <string name="label_ticket_accepted">Accepted</string>
+    <string name="label_ticket_complete">Complete</string>
+    <string name="label_ticket_canceled">Canceled</string>
+    <string name="label_ticket_upload_failed">Upload failed</string>
 </resources>
