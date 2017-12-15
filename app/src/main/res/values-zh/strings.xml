@@ -51,4 +51,16 @@
     <string name="label_ticket_complete">已完成</string>
     <string name="label_ticket_canceled">已取消</string>
     <string name="label_ticket_upload_failed">上传失败</string>
+    <string name="label_main_no_cards_title">没有工单</string>
+    <string name="label_main_no_card_content">点击右下角的 ‘+’ 号新建工单</string>
+    <string name="toast_add_ticket_no_gps">我们似乎无法找到你</string>
+    <string name="button_add_ticket_finding_location">正在定位</string>
+    <string name="error_add_ticket_no_name">请输入姓名</string>
+    <string name="error_add_ticket_invalid_phone_number">不正确的手机号格式</string>
+    <string name="toast_add_ticket_success">工单提交成功</string>
+    <string name="toast_add_ticket_failed">工单提交失败</string>
+    <string name="button_add_ticket_pushing_ticket">发送中</string>
+    <string name="error_add_ticket_location_too_long">地址不能超过 40 字</string>
+    <string name="error_add_ticket_no_location">请输入地址</string>
+    <string name="error_add_ticket_note_too_long">备注不应超过 130 字</string>
 </resources>

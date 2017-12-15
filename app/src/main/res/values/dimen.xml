@@ -10,6 +10,9 @@
     <dimen name="card_states_text">14sp</dimen>
     <dimen name="card_margin">5dp</dimen>
 
+    <dimen name="main_title_text">32sp</dimen>
+    <dimen name="main_content_text">20sp</dimen>
+
     <dimen name="about_logo_size">120dp</dimen>
     <dimen name="about_app_name_text">40sp</dimen>
     <dimen name="about_version_text">30sp</dimen>

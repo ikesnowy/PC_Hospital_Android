@@ -41,6 +41,7 @@ public class TicketActivity extends AppCompatActivity {
     private TextView uName;
     private TextView uPhone;
     SharedPreferences userProfile;
+    MainFragment mainFragment;
 
     private static final String TAG = "TicketActivity";
     @Override
@@ -155,7 +156,8 @@ public class TicketActivity extends AppCompatActivity {
         }
 
         // 启动主 Fragment
-        replaceFragment(new MainFragment());
+        mainFragment = new MainFragment();
+        replaceFragment(mainFragment);
     }
 
     @Override
@@ -207,6 +209,9 @@ public class TicketActivity extends AppCompatActivity {
                 break;
             case TYPE_SETTINGS:
                 updateUserInfo();
+                break;
+            case TYPE_ADD_TICKET:
+                mainFragment.refreshCards();
                 break;
             default:
         }

@@ -49,16 +49,18 @@
         <activity
             android:name=".LoginActivity"
             android:label=""
-            android:launchMode="singleTask" >
+            android:launchMode="singleTask">
             <intent-filter>
-                <action android:name="cc.pchospital.app.LoginActivity"/>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="cc.pchospital.app.LoginActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
             android:name=".AddTicketActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".SettingsActivity"/>
+        <activity android:name=".SettingsActivity" />
+        <activity android:name=".TicketDetailActivity"></activity>
     </application>
 
 </manifest>

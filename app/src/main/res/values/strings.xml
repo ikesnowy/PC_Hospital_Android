@@ -76,4 +76,27 @@
     <string name="app_ticket_states_complete" translatable="false">complete</string>
     <string name="app_ticket_states_canceled" translatable="false">canceled</string>
     <string name="app_ticket_states_failed" translatable="false">failed</string>
+    <string name="app_network_query_cards" translatable="false">queryCards.jsp</string>
+    <string name="label_main_no_cards_title">Nothing there</string>
+    <string name="label_main_no_card_content">Press \'+\' to add a ticket</string>
+    <string name="toast_add_ticket_no_gps">Can\'t get your location</string>
+    <string name="button_add_ticket_finding_location">finding your location</string>
+    <string name="error_add_ticket_no_name">Requird Field</string>
+    <string name="error_add_ticket_invalid_phone_number">Invalid Phone Number</string>
+    <string name="app_db_ticket_name" translatable="false">tname</string>
+    <string name="app_db_ticket_phone" translatable="false">tphone</string>
+    <string name="app_db_ticket_location" translatable="false">tlocation</string>
+    <string name="app_db_ticket_location_lo" translatable="false">tlocationLo</string>
+    <string name="app_db_ticket_location_la" translatable="false">tlocationLa</string>
+    <string name="app_db_ticket_note" translatable="false">tnote</string>
+    <string name="app_db_ticket_state" translatable="false">tstates</string>
+    <string name="app_db_ticket_uid" translatable="false">uid</string>
+    <string name="app_db_ticket_date" translatable="false">tdate</string>
+    <string name="app_network_push_ticket_page" translatable="false">addTicket.jsp</string>
+    <string name="toast_add_ticket_success">Send ticket successfully</string>
+    <string name="toast_add_ticket_failed">Send ticket failed</string>
+    <string name="button_add_ticket_pushing_ticket">Sending</string>
+    <string name="error_add_ticket_location_too_long">Location should be no more than 80 characters</string>
+    <string name="error_add_ticket_no_location">Required Field</string>
+    <string name="error_add_ticket_note_too_long">Note should be no more than 260 characters</string>
 </resources>

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 
@@ -61,7 +62,9 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         Card card = cards.get(position);
         holder.cardID.setText(card.getTicketID());
-        holder.cardDate.setText(card.getTicketDate());
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        String date = format.format(card.getTicketDate());
+        holder.cardDate.setText(date);
         holder.cardLocation.setText(card.getTicketLocation());
         holder.cardNote.setText(card.getTicketNote());
         holder.cardStates.setTextColor(colorDictionary.get(card.getTicketStates()));

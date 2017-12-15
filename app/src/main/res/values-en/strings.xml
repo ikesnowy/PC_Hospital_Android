@@ -51,4 +51,16 @@
     <string name="label_ticket_complete">Complete</string>
     <string name="label_ticket_canceled">Canceled</string>
     <string name="label_ticket_upload_failed">Upload failed</string>
+    <string name="label_main_no_cards_title">Nothing there</string>
+    <string name="label_main_no_card_content">Press \'+\' to add a ticket</string>
+    <string name="toast_add_ticket_no_gps">Can\'t get your location</string>
+    <string name="button_add_ticket_finding_location">finding your location</string>
+    <string name="error_add_ticket_no_name">Requird Field</string>
+    <string name="error_add_ticket_invalid_phone_number">Invalid Phone Number</string>
+    <string name="toast_add_ticket_success">Send ticket successfully</string>
+    <string name="toast_add_ticket_failed">Send ticket failed</string>
+    <string name="button_add_ticket_pushing_ticket">Sending</string>
+    <string name="error_add_ticket_location_too_long">Location should be no more than 80 characters</string>
+    <string name="error_add_ticket_no_location">Required Field</string>
+    <string name="error_add_ticket_note_too_long">Note should be no more than 260 characters</string>
 </resources>

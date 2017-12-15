@@ -23,7 +23,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         // ToolBar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
         user = new User();
-        Button language = (Button) findViewById(R.id.language);
+        Button language = findViewById(R.id.language);
         language.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,14 +52,14 @@ public class LoginActivity extends AppCompatActivity {
             language.setVisibility(View.GONE);
         }
 
-            final Button login = (Button) findViewById(R.id.login);
+            final Button login = findViewById(R.id.login);
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // 输入校验
-                TextInputEditText inputname = (TextInputEditText) findViewById(R.id.input_name);
+                TextInputEditText inputname = findViewById(R.id.input_name);
                 String uname = inputname.getText().toString();
-                TextInputEditText inputphone = (TextInputEditText) findViewById(R.id.input_phone);
+                TextInputEditText inputphone = findViewById(R.id.input_phone);
                 String uphone = inputphone.getText().toString();
                 if (uname.length() > 40){
                     inputname.setError(getString(R.string.error_login_name_too_long));

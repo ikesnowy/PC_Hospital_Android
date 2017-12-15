@@ -1,14 +1,16 @@
 package cc.pchospital.app.util;
 
 
+import android.support.annotation.NonNull;
+
 public class Card {
     private String ticketID;
-    private String ticketDate;
+    private Long ticketDate;
     private String ticketLocation;
     private String ticketNote;
     private String ticketStates;
 
-    public Card(int id, String date, String location, String note, String states){
+    public Card(int id, Long date, String location, String note, String states){
         ticketID = Integer.toString(id);
         ticketDate = date;
         ticketLocation = location;
@@ -24,15 +26,19 @@ public class Card {
         this.ticketID = ticketID;
     }
 
-    String getTicketDate() {
+    Long getTicketDate() {
         return ticketDate;
     }
 
-    public void setTicketDate(String ticketDate) {
+    public void setTicketDate(Long ticketDate) {
         this.ticketDate = ticketDate;
     }
 
+    @NonNull
     String getTicketLocation() {
+        if (ticketLocation == null){
+            ticketLocation = "";
+        }
         return ticketLocation;
     }
 
@@ -40,7 +46,11 @@ public class Card {
         this.ticketLocation = ticketLocation;
     }
 
+    @NonNull
     String getTicketNote() {
+        if (ticketNote == null){
+            ticketNote = "";
+        }
         return ticketNote;
     }
 
