@@ -63,4 +63,15 @@
     <string name="error_add_ticket_location_too_long">地址不能超过 40 字</string>
     <string name="error_add_ticket_no_location">请输入地址</string>
     <string name="error_add_ticket_note_too_long">备注不应超过 130 字</string>
+    <string name="label_ticket_detail_contacts">联系方式</string>
+    <string name="label_ticket_detail_latest_update">最后更新时间：</string>
+    <string name="label_ticket_detail_Notes">问题描述</string>
+    <string name="label_ticket_detail_name">联系人</string>
+    <string name="label_ticket_detail_phone_number">联系电话</string>
+    <string name="label_ticket_detail_location">地址</string>
+    <string name="toast_ticket_detail_refresh_failed">刷新失败，请检查网络</string>
+    <string name="title_ticket_detail">工单详情</string>
+    <string name="label_ticket_detail_states">工单状态</string>
+    <string name="toast_ticket_detail_copy_to_clipboard_successfully">已复制到剪贴板</string>
+    <string name="title_navigation_to">位置详情</string>
 </resources>

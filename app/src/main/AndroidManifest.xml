@@ -60,7 +60,8 @@
             android:name=".AddTicketActivity"
             android:launchMode="singleTask" />
         <activity android:name=".SettingsActivity" />
-        <activity android:name=".TicketDetailActivity"></activity>
+        <activity android:name=".TicketDetailActivity" />
+        <activity android:name=".NavigationToActivity"></activity>
     </application>
 
 </manifest>

@@ -63,4 +63,15 @@
     <string name="error_add_ticket_location_too_long">Location should be no more than 80 characters</string>
     <string name="error_add_ticket_no_location">Required Field</string>
     <string name="error_add_ticket_note_too_long">Note should be no more than 260 characters</string>
+    <string name="label_ticket_detail_contacts">Contacts</string>
+    <string name="label_ticket_detail_latest_update">Latest Update:</string>
+    <string name="label_ticket_detail_Notes">Notes</string>
+    <string name="label_ticket_detail_name">Name</string>
+    <string name="label_ticket_detail_phone_number">Phone</string>
+    <string name="label_ticket_detail_location">Location</string>
+    <string name="toast_ticket_detail_refresh_failed">Refresh Failed</string>
+    <string name="title_ticket_detail">Ticket Detail</string>
+    <string name="label_ticket_detail_states">State</string>
+    <string name="toast_ticket_detail_copy_to_clipboard_successfully">Copied to clipboard</string>
+    <string name="title_navigation_to">Location Detail</string>
 </resources>

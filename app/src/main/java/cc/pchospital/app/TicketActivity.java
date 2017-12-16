@@ -150,6 +150,7 @@ public class TicketActivity extends AppCompatActivity {
             Toast.makeText(this, getString(R.string.toast_ticket_need_login),
                     Toast.LENGTH_SHORT).show();
             startActivityForResult(intent, TYPE_LOGIN);
+            finish();
         } else {
             // UI-NavigationHead
             updateUserInfo();

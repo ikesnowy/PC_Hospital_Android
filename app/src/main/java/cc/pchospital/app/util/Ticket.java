@@ -11,6 +11,17 @@ public class Ticket {
     private String ticketLocation;
     private Double ticketLocationLo;
     private Double ticketLocationLa;
+    private String staffId;
+
+    public Ticket(Card card) {
+        ticketId = card.getTicketID();
+        ticketLocation = card.getTicketLocation();
+        ticketDate = card.getTicketDate();
+        ticketStates = card.getTicketStates();
+        ticketNote = card.getTicketNote();
+    }
+
+    public Ticket(){}
 
     public String getTicketId() {
         return ticketId;
@@ -96,5 +107,13 @@ public class Ticket {
 
     public void setTicketLocationLa(Double ticketLocationLa) {
         this.ticketLocationLa = ticketLocationLa;
+    }
+
+    public String getStaffId() {
+        return staffId;
+    }
+
+    public void setStaffId(String staffId) {
+        this.staffId = staffId;
     }
 }
