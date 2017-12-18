@@ -33,8 +33,6 @@ public class MainFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
     private SwipeRefreshLayout.OnRefreshListener refreshListener;
 
-    private static final int TYPE_ADD_TICKET = 3;
-
     public MainFragment() {
         // Required empty public constructor
     }
@@ -84,6 +82,12 @@ public class MainFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        refreshCards();
     }
 
     public void refreshCards() {
