@@ -83,4 +83,5 @@
     <string name="dialog_delete_photo_cancel">取消</string>
     <string name="dialog_upload_image_uploading">上传图片</string>
     <string name="label_ticket_detail_photo_card">照片</string>
+    <string name="title_picture_detail">图片详情</string>
 </resources>

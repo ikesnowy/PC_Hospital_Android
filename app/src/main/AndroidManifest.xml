@@ -37,19 +37,20 @@
         <service android:name="com.amap.api.location.APSService" />
 
         <provider
-            android:authorities="camera"
             android:name="android.support.v4.content.FileProvider"
+            android:authorities="camera"
             android:exported="false"
             android:grantUriPermissions="true">
-            <meta-data android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"/>
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
         </provider>
 
         <activity
             android:name=".TicketActivity"
             android:configChanges="locale|layoutDirection"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -59,8 +60,8 @@
         <activity
             android:name=".LoginActivity"
             android:label=""
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="cc.pchospital.app.LoginActivity" />
 
@@ -70,13 +71,17 @@
         <activity
             android:name=".AddTicketActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".SettingsActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".TicketDetailActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".NavigationToActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SettingsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".TicketDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".NavigationToActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".PhotoDetailActivity"></activity>
     </application>
 
 </manifest>

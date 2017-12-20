@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,7 +44,7 @@ public class TicketDetailActivity extends AppCompatActivity {
     private Button ticketLocation;
 
     private CardView ticketPhotoCard;
-    private ImageView[] ticketPhotos;
+    private ImageButton[] ticketPhotos;
 
     public static void actionStart(Context context, String ticketId) {
         Intent intent = new Intent(context, TicketDetailActivity.class);
@@ -103,11 +104,31 @@ public class TicketDetailActivity extends AppCompatActivity {
         ticketLocation = findViewById(R.id.detail_location);
 
         ticketPhotoCard = findViewById(R.id.pictures_card);
-        ticketPhotos = new ImageView[3];
+        ticketPhotos = new ImageButton[3];
         ticketPhotos[0] = findViewById(R.id.ticket_detail_photo1);
         ticketPhotos[1] = findViewById(R.id.ticket_detail_photo2);
         ticketPhotos[2] = findViewById(R.id.ticket_detail_photo3);
+        View.OnClickListener listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String[] urls = ticket.getPictures();
+                switch (v.getId()) {
+                    case R.id.ticket_detail_photo1:
+                        PhotoDetailActivity.actionStart(TicketDetailActivity.this, urls[0]);
+                        break;
+                    case R.id.ticket_detail_photo2:
+                        PhotoDetailActivity.actionStart(TicketDetailActivity.this, urls[1]);
+                        break;
+                    case R.id.ticket_detail_photo3:
+                        PhotoDetailActivity.actionStart(TicketDetailActivity.this, urls[2]);
+                        break;
+                }
+            }
+        };
 
+        for (ImageButton i : ticketPhotos) {
+            i.setOnClickListener(listener);
+        }
     }
 
     @Override

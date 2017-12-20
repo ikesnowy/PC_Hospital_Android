@@ -7,8 +7,8 @@ android {
         applicationId "cc.pchospital.app"
         minSdkVersion 15
         targetSdkVersion 26
-        versionCode 27
-        versionName "Build 27"
+        versionCode 28
+        versionName "Build 28"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
