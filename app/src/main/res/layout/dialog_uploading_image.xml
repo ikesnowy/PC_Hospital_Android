@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/card_normal_padding">
+
+
+        <LinearLayout
+            android:layout_margin="@dimen/card_normal_padding"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/dialog_upload_image_uploading"
+                android:textSize="@dimen/ticket_detail_form_title"
+                android:textColor="@android:color/black"/>
+        </LinearLayout>
+
+
+        <ProgressBar
+            android:layout_marginLeft="@dimen/card_normal_padding"
+            android:layout_marginRight="@dimen/card_normal_padding"
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+</LinearLayout>

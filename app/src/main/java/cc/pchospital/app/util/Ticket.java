@@ -12,6 +12,7 @@ public class Ticket {
     private Double ticketLocationLo;
     private Double ticketLocationLa;
     private String staffId;
+    private String[] pictures;
 
     public Ticket(Card card) {
         ticketId = card.getTicketID();

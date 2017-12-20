@@ -74,4 +74,12 @@
     <string name="label_ticket_detail_states">工单状态</string>
     <string name="toast_ticket_detail_copy_to_clipboard_successfully">已复制到剪贴板</string>
     <string name="title_navigation_to">位置详情</string>
+    <string name="label_add_ticket_add_photo">添加照片</string>
+    <string name="dialog_pick_photo_source_content">选择来源</string>
+    <string name="dialog_pick_source_camera">从相机拍摄……</string>
+    <string name="dialog_pick_source_album">从相册选取……</string>
+    <string name="dialog_delete_photo">删除？</string>
+    <string name="dialog_delete_photo_ok">删除</string>
+    <string name="dialog_delete_photo_cancel">取消</string>
+    <string name="dialog_upload_image_uploading">上传图片</string>
 </resources>

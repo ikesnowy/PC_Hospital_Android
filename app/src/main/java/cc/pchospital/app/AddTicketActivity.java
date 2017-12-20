@@ -1,16 +1,32 @@
 package cc.pchospital.app;
 
 import android.Manifest;
+import android.annotation.TargetApi;
+import android.content.ContentUris;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Path;
+import android.net.Uri;
+import android.os.Build;
 import android.preference.PreferenceManager;
+import android.provider.DocumentsContract;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -24,13 +40,19 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.Random;
 
 import cc.pchospital.app.db.PushTicketTask;
+import cc.pchospital.app.db.UploadImageTask;
 import cc.pchospital.app.util.HttpUtil;
 import cc.pchospital.app.util.Ticket;
 
@@ -42,7 +64,17 @@ public class AddTicketActivity extends AppCompatActivity {
     public  Button submit;
     private Button getLocation;
     private View.OnClickListener getLocationListener;
+
+    private int imageSum = 3;
+    public List<Uri> imageUri;
+    public List<String> imagePath;
+    private AppCompatImageButton[] images;
+    private AppCompatImageButton addPhoto;
+
     private static final String TAG = "AddTicketActivity";
+
+    private static final int PICK_PHOTO_FROM_CAMERA = 1;
+    private static final int PICK_PHOTO_FROM_ALBUM = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,11 +186,79 @@ public class AddTicketActivity extends AppCompatActivity {
                                 getString(R.string.app_network_server_ip),
                                 getString(R.string.app_network_push_ticket_page)
                         );
-                new PushTicketTask(newTicket, AddTicketActivity.this).execute(url);
+
+                if (!imageUri.isEmpty()){
+                    new UploadImageTask(AddTicketActivity.this, newTicket).execute(url);
+                } else {
+
+                    new PushTicketTask(newTicket, AddTicketActivity.this).execute(url);
+                }
+
+
             }
         });
 
+        // UI-ImageButtons
+        imageUri = new ArrayList<>();
+        imagePath = new ArrayList<>();
+        images = new AppCompatImageButton[imageSum];
+        images[0] = findViewById(R.id.photo_1);
+        images[1] = findViewById(R.id.photo_2);
+        images[2] = findViewById(R.id.photo_3);
+        addPhoto = findViewById(R.id.photo_add);
 
+        addPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPickPhotoSourceDialog();
+            }
+        });
+
+        images[0].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDeletePhotoDialog(0);
+            }
+        });
+
+        images[1].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDeletePhotoDialog(1);
+            }
+        });
+
+        images[2].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDeletePhotoDialog(2);
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case PICK_PHOTO_FROM_CAMERA:
+                if (resultCode == RESULT_OK) {
+                    refreshPhotoList();
+                } else {
+                    imageUri.remove(imageUri.size() - 1);
+                    imagePath.remove(imagePath.size() - 1);
+                }
+                break;
+            case PICK_PHOTO_FROM_ALBUM:
+                if (resultCode == RESULT_OK) {
+                    if (Build.VERSION.SDK_INT >= 19) {
+                        handleImageOnKitKat(data);
+                    } else {
+                        handleImageBeforeKitKat(data);
+                    }
+                    imageUri.add(data.getData());
+                    refreshPhotoList();
+                }
+                break;
+        }
     }
 
     @Override
@@ -185,6 +285,13 @@ public class AddTicketActivity extends AppCompatActivity {
                     getLocationListener.onClick(getLocation);
                 }
                 break;
+            case 2:
+                if (grantResults.length > 0 &&
+                        grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    openAlbum();
+                } else {
+                    return;
+                }
             default:
         }
     }
@@ -210,5 +317,151 @@ public class AddTicketActivity extends AppCompatActivity {
             return false;
         }
         return true;
+    }
+
+    private void showPickPhotoSourceDialog() {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle(R.string.dialog_pick_photo_source_content)
+                .setCancelable(true)
+                .setItems(R.array.array_pick_photo_source, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0:
+                                File image = new File(getExternalCacheDir(),
+                                        "image" + System.currentTimeMillis() + ".jpg");
+                                try {
+                                    if (image.exists()) {
+                                        image.delete();
+                                    }
+                                    image.createNewFile();
+                                } catch (Exception e) {
+                                    return;
+                                }
+                                Uri photoUri;
+                                if (Build.VERSION.SDK_INT >= 24) {
+                                    photoUri  = FileProvider.getUriForFile(AddTicketActivity.this,
+                                            "camera", image);
+                                } else {
+                                    photoUri = Uri.fromFile(image);
+                                }
+                                imageUri.add(photoUri);
+                                imagePath.add(image.getPath());
+                                Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+                                intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+                                startActivityForResult(intent, PICK_PHOTO_FROM_CAMERA);
+                                break;
+                            case 1:
+                                if (ContextCompat
+                                        .checkSelfPermission(AddTicketActivity.this,
+                                        Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
+                                        PackageManager.PERMISSION_GRANTED) {
+                                    ActivityCompat.requestPermissions(AddTicketActivity.this,
+                                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}
+                                            , 2);
+                                } else {
+                                    openAlbum();
+                                }
+                                break;
+                        }
+                    }
+                });
+        dialog.show();
+    }
+
+    private void openAlbum() {
+        Intent intent = new Intent("android.intent.action.GET_CONTENT");
+        intent.setType("image/*");
+        startActivityForResult(intent, PICK_PHOTO_FROM_ALBUM);
+    }
+
+    private void showDeletePhotoDialog(final int source) {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setMessage(R.string.dialog_delete_photo)
+                .setPositiveButton(R.string.dialog_delete_photo_ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        imageUri.remove(source);
+                        imagePath.remove(source);
+                        images[source].setVisibility(View.GONE);
+                        refreshPhotoList();
+                    }
+                })
+                .setNegativeButton(R.string.dialog_delete_photo_cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        return;
+                    }
+                });
+        dialog.show();
+    }
+
+    private void refreshPhotoList() {
+        try {
+            for (int i = 0; i < imageSum; i++) {
+                if (i >= imageUri.size()) {
+                    Glide.with(this)
+                            .clear(images[i]);
+                    images[i].setVisibility(View.GONE);
+                    continue;
+                }
+                images[i].setVisibility(View.VISIBLE);
+                Glide.with(this)
+                        .load(imageUri.get(i))
+                        .apply(RequestOptions.centerCropTransform())
+                        .into(images[i]);
+            }
+
+            if (imageUri.size() == 3) {
+                addPhoto.setVisibility(View.GONE);
+            } else {
+                addPhoto.setVisibility(View.VISIBLE);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @TargetApi(19)
+    private void handleImageOnKitKat(Intent data) {
+        String path = null;
+        Uri uri = data.getData();
+        if (DocumentsContract.isDocumentUri(this, uri)) {
+            String docId = DocumentsContract.getDocumentId(uri);
+            if ("com.android.providers.media.documents".equals(uri.getAuthority())) {
+                String id = docId.split(":")[1];
+                String selection = MediaStore.Images.Media._ID + "=" + id;
+                path = getImagePath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, selection);
+            } else if ("com.android.providers.downloads.documents".equals(uri.getAuthority())) {
+                Uri contentUri = ContentUris.withAppendedId(
+                        Uri.parse("content://downloads/public_downloads"), Long.valueOf(docId));
+                path = getImagePath(contentUri, null);
+            }
+        } else if ("content".equalsIgnoreCase(uri.getScheme())) {
+            path = getImagePath(uri, null);
+        } else if ("file".equalsIgnoreCase(uri.getScheme())) {
+            path = uri.getPath();
+        }
+        imagePath.add(path);
+    }
+
+    private void handleImageBeforeKitKat(Intent intent) {
+        Uri uri = intent.getData();
+        String path = getImagePath(uri, null);
+        imagePath.add(path);
+    }
+
+    private String getImagePath(Uri uri, String selection) {
+        String path = null;
+        Cursor cursor = getContentResolver()
+                .query(uri, null, selection, null, null);
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
+            }
+            cursor.close();
+        }
+        return path;
     }
 }

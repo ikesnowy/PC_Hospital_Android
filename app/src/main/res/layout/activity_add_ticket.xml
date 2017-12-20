@@ -77,6 +77,15 @@
                         android:singleLine="true" />
                 </android.support.design.widget.TextInputLayout>
 
+                <Button
+                    android:id="@+id/get_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:drawableLeft="@drawable/icon_my_location"
+                    android:drawableStart="@drawable/icon_my_location"
+                    android:text="@string/button_add_ticket_add_location"/>
+
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -94,14 +103,58 @@
                         android:singleLine="false" />
                 </android.support.design.widget.TextInputLayout>
 
-                <Button
-                    android:id="@+id/get_location"
-                    android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:drawableLeft="@drawable/icon_my_location"
-                    android:drawableStart="@drawable/icon_my_location"
-                    android:text="@string/button_add_ticket_add_location"/>
+                    android:text="@string/label_add_ticket_add_photo"
+                    android:textSize="@dimen/add_ticket_label_text_size"/>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/add_ticket_photo_icon_size">
+                    <android.support.v7.widget.AppCompatImageButton
+                        android:id="@+id/photo_1"
+                        android:layout_width="@dimen/add_ticket_photo_preview_size"
+                        android:layout_height="@dimen/add_ticket_photo_preview_size"
+                        android:background="?android:selectableItemBackground"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="@dimen/add_ticket_photo_preview_margin"
+                        android:layout_marginEnd="@dimen/add_ticket_photo_preview_margin"
+                        app:srcCompat="@drawable/icon_add_a_photo_black_48dp"
+                        android:visibility="gone"
+                        android:scaleType="centerCrop"/>
+
+                    <android.support.v7.widget.AppCompatImageButton
+                        android:id="@+id/photo_2"
+                        android:layout_width="@dimen/add_ticket_photo_preview_size"
+                        android:layout_height="@dimen/add_ticket_photo_preview_size"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="@dimen/add_ticket_photo_preview_margin"
+                        android:layout_marginEnd="@dimen/add_ticket_photo_preview_margin"
+                        android:background="?android:selectableItemBackground"
+                        app:srcCompat="@drawable/icon_add_a_photo_black_48dp"
+                        android:visibility="gone"
+                        android:scaleType="centerCrop"/>
+
+                    <android.support.v7.widget.AppCompatImageButton
+                        android:id="@+id/photo_3"
+                        android:layout_width="@dimen/add_ticket_photo_preview_size"
+                        android:layout_height="@dimen/add_ticket_photo_preview_size"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="@dimen/add_ticket_photo_preview_margin"
+                        android:layout_marginEnd="@dimen/add_ticket_photo_preview_margin"
+                        android:background="?android:selectableItemBackground"
+                        app:srcCompat="@drawable/icon_add_a_photo_black_48dp"
+                        android:visibility="gone"
+                        android:scaleType="centerCrop"/>
+
+                    <android.support.v7.widget.AppCompatImageButton
+                        android:id="@+id/photo_add"
+                        android:layout_width="@dimen/add_ticket_photo_icon_size"
+                        android:layout_height="@dimen/add_ticket_photo_icon_size"
+                        app:srcCompat="@drawable/icon_add_a_photo_black_48dp"/>
+                </LinearLayout>
+
 
                 <Button
                     android:id="@+id/send"
@@ -112,3 +165,4 @@
         </ScrollView>
     </android.support.design.widget.CoordinatorLayout>
 </android.support.constraint.ConstraintLayout>
+
