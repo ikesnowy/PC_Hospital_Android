@@ -13,8 +13,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -36,6 +41,9 @@ public class TicketDetailActivity extends AppCompatActivity {
     private TextView ticketName;
     private TextView ticketPhone;
     private Button ticketLocation;
+
+    private CardView ticketPhotoCard;
+    private ImageView[] ticketPhotos;
 
     public static void actionStart(Context context, String ticketId) {
         Intent intent = new Intent(context, TicketDetailActivity.class);
@@ -93,6 +101,13 @@ public class TicketDetailActivity extends AppCompatActivity {
             }
         });
         ticketLocation = findViewById(R.id.detail_location);
+
+        ticketPhotoCard = findViewById(R.id.pictures_card);
+        ticketPhotos = new ImageView[3];
+        ticketPhotos[0] = findViewById(R.id.ticket_detail_photo1);
+        ticketPhotos[1] = findViewById(R.id.ticket_detail_photo2);
+        ticketPhotos[2] = findViewById(R.id.ticket_detail_photo3);
+
     }
 
     @Override
@@ -168,5 +183,28 @@ public class TicketDetailActivity extends AppCompatActivity {
 
         // NoteCard
         ticketNotes.setText(ticket.getTicketNote());
+
+        // PhotoCard
+        String[] pics = ticket.getPictures();
+        if (pics != null) {
+            if (pics.length != 0) {
+                ticketPhotoCard.setVisibility(View.VISIBLE);
+                for (int i = 0; i < 3; i++) {
+                    if (i >= pics.length) {
+                        ticketPhotos[i].setVisibility(View.GONE);
+                        continue;
+                    }
+                    Glide.with(this)
+                            .load(pics[i])
+                            .apply(RequestOptions.centerCropTransform())
+                            .into(ticketPhotos[i]);
+                    ticketPhotos[i].setVisibility(View.VISIBLE);
+                }
+            } else {
+                ticketPhotoCard.setVisibility(View.GONE);
+            }
+        } else {
+            ticketPhotoCard.setVisibility(View.GONE);
+        }
     }
 }

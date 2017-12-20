@@ -117,4 +117,12 @@ public class Ticket {
     public void setStaffId(String staffId) {
         this.staffId = staffId;
     }
+
+    public String[] getPictures() {
+        return pictures;
+    }
+
+    public void setPictures(String[] pictures) {
+        this.pictures = pictures;
+    }
 }

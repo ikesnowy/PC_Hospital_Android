@@ -8,7 +8,7 @@
 
     <string name="nav_home">Home</string>
     <string name="title_about">About</string>
-    <string name="app_version" translatable="false">Build 26</string>
+    <string name="app_version" translatable="false">Build 27</string>
     <string name="title_your_ticket">Your Ticket</string>
     <string name="title_login">Sign in</string>
     <string name="label_login_phone">Phone Number</string>
@@ -124,4 +124,5 @@
     <string name="app_network_add_picture_page" translatable="false">addPicture.jsp</string>
     <string name="app_db_picture_tid" translatable="false">tid</string>
     <string name="app_db_picture_url" translatable="false">url</string>
+    <string name="label_ticket_detail_photo_card">Photo</string>
 </resources>
